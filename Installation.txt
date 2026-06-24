@@ -1,0 +1,9 @@
+# Clone this repository
+git clone https://github.com/shataragh/professional-security-scanner.git
+cd professional-security-scanner
+
+# Install Python dependencies
+pip install -r requirements.txt
+
+# Verify installations
+python3 scanner.py --help
