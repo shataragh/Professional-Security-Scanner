@@ -1,0 +1,13 @@
+# Core tools
+sudo apt install nmap nikto sqlmap hashcat hydra
+
+# Nuclei (ProjectDiscovery)
+# Download from: https://github.com/projectdiscovery/nuclei/releases
+# Or install via Go:
+go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
+
+# Update Nuclei templates
+nuclei -update-templates
+
+# SecLists (wordlists & payloads)
+git clone https://github.com/danielmiessler/SecLists.git /root/SecLists
