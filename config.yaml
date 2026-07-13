@@ -1,3 +1,6 @@
+# Professional Red Team Penetration Testing Framework v14.0 Configuration
+# This file overrides DEFAULT_CONFIG in scanner.py
+
 scan_profile: aggressive
 threads: 20
 timeout: 5
@@ -7,11 +10,33 @@ output_dir: /tmp/scan_results
 output_formats:
   - html
   - json
-  - markdown
+
+# Self-Protection System (Optional Operational Security)
+self_protection: false
+proxies_file: null  # Path to proxies.txt if self_protection is enabled
+
+# NVD API Key (Optional - increases rate limit for CVE lookups)
+nvd_api_key: ""
+
+# Resume interrupted scans
+resume: false
 
 wordlists:
   directories:
     - /root/SecLists/Discovery/Web-Content/common.txt
     - /root/SecLists/Discovery/Web-Content/raft-medium-directories.txt
+    - /root/SecLists/Discovery/Web-Content/raft-medium-files.txt
+  xss:
+    - /root/SecLists/Fuzzing/XSS/human-friendly/XSS-BruteLogic.txt
+    - /root/SecLists/Fuzzing/XSS/robot-friendly/XSS-BruteLogic.txt
+  sqli:
+    - /root/SecLists/Fuzzing/Databases/SQLi/Generic-SQLi.txt
+  lfi:
+    - /root/SecLists/Fuzzing/LFI/Linux/LFI-gracefulsecurity-linux.txt
+  command_injection:
+    - /root/SecLists/Fuzzing/command-injection-commix.txt
+  subdomains: /root/SecLists/Discovery/DNS/subdomains-top1million-5000.txt
   passwords: /root/SecLists/Passwords/Common-Credentials/xato-net-10-million-passwords-100000.txt
+  top_passwords: /root/SecLists/Passwords/Common-Credentials/10k-most-common.txt
   usernames: /root/SecLists/Usernames/cirt-default-usernames.txt
+  parameters: /root/SecLists/Discovery/Web-Content/raft-large-words-lowercase.txt
