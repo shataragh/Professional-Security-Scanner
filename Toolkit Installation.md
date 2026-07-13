@@ -66,8 +66,22 @@ Finds unlinked parameters via brute-force:
 ```bash
 go install github.com/PortSwigger/param-miner@latest
 ```
+## 🔍 Vulnerability Scanning (Nuclei)
 
-
+Nuclei is a fast, customizable vulnerability scanner based on simple DSL templates.
+Installation via Go
+```bash
+go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
+```
+Template Initialization
+Download and update the latest community-curated vulnerability templates:
+```bash
+nuclei -update-templates
+```
+Troubleshooting 32-bit Systems: If -update-templates fails due to version parsing errors, manually clone templates:
+```bash
+git clone --depth 1 https://github.com/projectdiscovery/nuclei-templates.git ~/nuclei-templates
+```
 
 
 
