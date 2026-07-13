@@ -1,8 +1,0 @@
-# (CSV - Module 7: Data Export)
-# Module 7: Multiple Output Formats
-# Example CSV export structure for Nikto results
-
-Timestamp,Severity,Tool,Title,Description,Target
-2024-01-15 10:30:00,HIGH,Nikto,Outdated Server,Apache/2.4.41 detected,https://example.com
-2024-01-15 10:31:15,MEDIUM,Nikto,Missing Headers,X-Frame-Options not set,https://example.com
-2024-01-15 10:32:30,LOW,Nikto,Directory Listing,Enabled on /uploads/,https://example.com
