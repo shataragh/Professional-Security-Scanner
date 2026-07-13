@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSAF v14.0 - Usage &amp; Operational Guide</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #24292f;
+            --heading-color: #1f2328;
+            --link-color: #0969da;
+            --code-bg: #f6f8fa;
+            --border-color: #d0d7de;
+            --table-stripe: #f6f8fa;
+            --critical-bg: #ffebe9;
+            --critical-border: #cf222e;
+            --warning-bg: #fff8c5;
+            --warning-border: #9a6700;
+            --success-bg: #dafbe1;
+            --success-border: #1a7f37;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        h1, h2, h3, h4 { color: var(--heading-color); margin-top: 1.5em; margin-bottom: 0.5em; }
+        h1 { font-size: 2rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem; margin-top: 0; }
+        h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.3rem; margin-top: 2.5rem; }
+        h3 { font-size: 1.25rem; margin-top: 1.8rem; }
+        h4 { font-size: 1.1rem; margin-top: 1.2rem; }
+
+        p { margin-bottom: 1rem; }
+        a { color: var(--link-color); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 0.875em;
+            background-color: var(--code-bg);
+            padding: 0.2em 0.4em;
+            border-radius: 6px;
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 1rem;
+            overflow-x: auto;
+            margin-bottom: 1rem;
+        }
+
+        pre code { background: none; padding: 0; font-size: 0.85rem; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 0.8rem;
+            text-align: left;
+        }
+
+        th { background-color: var(--table-stripe); font-weight: 600; }
+        tr:nth-child(even) { background-color: var(--table-stripe); }
+
+        .alert {
+            padding: 1rem;
+            border-left: 4px solid;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+
+        .alert-critical { background-color: var(--critical-bg); border-color: var(--critical-border); }
+        .alert-warning { background-color: var(--warning-bg); border-color: var(--warning-border); }
+        .alert-success { background-color: var(--success-bg); border-color: var(--success-border); }
+
+        .badge {
+            display: inline-block;
+            padding: 0.15em 0.5em;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 2em;
+            color: #fff;
+            vertical-align: middle;
+        }
+
+        .badge-red { background-color: #cf222e; }
+        .badge-orange { background-color: #bc4c00; }
+        .badge-green { background-color: #1a7f37; }
+        .badge-blue { background-color: #0969da; }
+
+        .toc { background: var(--code-bg); padding: 1.5rem; border-radius: 6px; margin-bottom: 2rem; }
+        .toc ul { list-style: none; padding-left: 0; }
+        .toc li { margin-bottom: 0.3rem; }
+        .toc a { font-weight: 500; }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            font-size: 0.85rem;
+            color: #656d76;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 1rem; }
+            h1 { font-size: 1.5rem; }
+            h2 { font-size: 1.25rem; }
+            table { font-size: 0.8rem; }
+            th, td { padding: 0.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Professional Red Team Penetration Testing Framework (PSAF) v14.0</h1>
+    <p><strong>Usage &amp; Operational Guide</strong></p>
+
+    <div class="alert alert-success">
+        ✅ This document covers the full evolution of the framework—from initial assessment (v8.0) to active red team exploitation (v14.0), including Attack Chain Engine, Intelligence Validation, Self-Protection, and 34+ integrated modules.
+    </div>
+
+    <nav class="toc">
+        <h3>Table of Contents</h3>
+        <ul>
+            <li><a href="#syntax">Core Execution Syntax</a></li>
+            <li><a href="#profiles">Execution Profiles &amp; Modes</a></li>
+            <li><a href="#self-protection">Self-Protection System</a></li>
+            <li><a href="#intelligence">Intelligence Engine Validation</a></li>
+            <li><a href="#chains">Attack Chain Engine</a></li>
+            <li><a href="#modules">Integrated Tools &amp; Modules (34+)</a></li>
+            <li><a href="#output">Output &amp; Reporting</a></li>
+            <li><a href="#lab">Lab Testing Recommendations</a></li>
+            <li><a href="#install">Installation Quick Reference</a></li>
+            <li><a href="#legal">Legal &amp; Ethical Notice</a></li>
+            <li><a href="#history">Version History Summary</a></li>
+        </ul>
+    </nav>
+
+    <!-- ============================================================ -->
+    <h2 id="syntax">🔧 Core Execution Syntax</h2>
+    <p>All commands are executed from the project root directory:</p>
+    <pre><code>python3 professional-security-scanner.py [OPTIONS]</code></pre>
+
+    <h3>Required Argument</h3>
+    <table>
+        <thead><tr><th>Flag</th><th>Description</th></tr></thead>
+        <tbody>
+            <tr><td><code>-t</code>, <code>--target</code></td><td>Target URL (must start with <code>http://</code> or <code>https://</code>)</td></tr>
+        </tbody>
+    </table>
+
+    <!-- ============================================================ -->
+    <h2 id="profiles">⚙️ Execution Profiles &amp; Modes</h2>
+
+    <h3>1. Basic Assessment Mode (Default)</h3>
+    <p>Non-intrusive vulnerability sweep. Uses <code>stealth</code> profile by default.</p>
+    <pre><code>python3 professional-security-scanner.py -t http://target.com</code></pre>
+    <ul>
+        <li>Threads: 2 | Delay: 1.0s</li>
+        <li>Modules: Recon + Fingerprinting + Passive Discovery</li>
+        <li>Output: HTML/JSON reports only</li>
+    </ul>
+
+    <h3>2. Aggressive Mode (Recommended for Labs)</h3>
+    <p>Balanced speed and depth. Enables all core scanning modules.</p>
+    <pre><code>python3 professional-security-scanner.py -t http://target.com -p aggressive</code></pre>
+    <ul>
+        <li>Threads: 20 | Delay: 0.02s</li>
+        <li>Modules: All 34 modules (recon, injection, API, external tools, chains)</li>
+        <li>Includes: Nmap, Nikto, SQLMap, Nuclei, ffuf, httpx, dalfox, gau</li>
+    </ul>
+
+    <h3>3. Extreme Mode (Maximum Coverage)</h3>
+    <p>Highest concurrency for time-sensitive engagements (CTFs, pentests).</p>
+    <pre><code>python3 professional-security-scanner.py -t http://target.com -p extreme</code></pre>
+    <ul>
+        <li>Threads: 40 | Delay: 0.01s | Max Payloads: 5,000</li>
+        <li>Enables: Race condition testing, deep blind SQLi, parallel credential stuffing</li>
+    </ul>
+
+    <h3>4. Stealth Mode (Evasion-Focused)</h3>
+    <p>Designed for real-world red team operations where detection must be minimized.</p>
+    <pre><code>python3 professional-security-scanner.py -t http://target.com -p stealth --self-protect</code></pre>
+    <ul>
+        <li>Threads: 2 | Delay: 1.0s</li>
+        <li>Human-like timing jitter (±30%)</li>
+        <li>Randomized User-Agent rotation</li>
+        <li>Realistic HTTP headers (<code>Sec-Fetch-*</code>, <code>Accept-Encoding</code>, etc.)</li>
+        <li>Circuit breaker (pauses after 15 failures)</li>
+        <li>Proxy rotation (if <code>--proxies</code> provided)</li>
+    </ul>
+
+    <!-- ============================================================ -->
+    <h2 id="self-protection">🛡️ Self-Protection System (Optional Flags)</h2>
+    <p>These flags activate operational security features. They are <strong>disabled by default</strong> to maximize speed in lab environments.</p>
+
+    <table>
+        <thead><tr><th>Flag</th><th>Purpose</th><th>Effect</th></tr></thead>
+        <tbody>
+            <tr><td><code>--self-protect</code></td><td>Enable evasion logic</td><td>Adds UA rotation, timing jitter, circuit breaker</td></tr>
+            <tr><td><code>--proxies &lt;file&gt;</code></td><td>Load proxy list</td><td>Rotates IPs on block (format: <code>ip:port</code> or <code>user:pass@ip:port</code>)</td></tr>
+            <tr><td><code>--hydra</code></td><td>Enable brute-force</td><td>Activates Hydra against discovered login forms</td></tr>
+            <tr><td><code>--user &lt;username&gt;</code></td><td>Custom username for Hydra</td><td>Defaults to <code>admin</code></td></tr>
+            <tr><td><code>--wordlist &lt;path&gt;</code></td><td>Custom password wordlist</td><td>Overrides default SecLists paths</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Example: Full Stealth + Brute-Force</h3>
+    <pre><code>python3 professional-security-scanner.py \
+  -t https://prod-api.example.com \
+  -p stealth \
+  --self-protect \
+  --proxies /root/proxies.txt \
+  --hydra \
+  --user admin</code></pre>
+
+    <div class="alert alert-warning">
+        💡 <strong>Tip:</strong> For local lab testing, omit <code>--self-protect</code> to get maximum speed and debug visibility.
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="intelligence">🧠 Intelligence Engine: How Findings Are Validated</h2>
+    <p>Before any attack chain executes, every finding passes through the <strong>Intelligence Engine</strong>, which performs 5-layer validation:</p>
+
+    <h3>Layer 1: Honeypot Detection</h3>
+    <ul>
+        <li>Checks for canary tokens (<code>x-canary</code>, <code>canary</code>, <code>decoy</code>)</li>
+        <li>Detects decoy endpoints (e.g., <code>/admin</code> returning perfect 200 with 100KB response)</li>
+        <li>Flags tracking parameters (<code>_cb=</code>, <code>session_id=</code>, <code>utm_*</code>)</li>
+    </ul>
+
+    <h3>Layer 2: False Positive Filtering</h3>
+    <ul>
+        <li>Filters generic errors (<code>error</code>, <code>exception</code>, <code>invalid</code>)</li>
+        <li>Skips default pages (<code>welcome</code>, <code>index</code>, <code>placeholder</code>)</li>
+        <li>Rejects CAPTCHA-only responses</li>
+    </ul>
+
+    <h3>Layer 3: Cross-Reference Validation</h3>
+    <ul>
+        <li>Requires corroboration from ≥2 tools (e.g., LFI found by both custom scanner and <code>ffuf</code>)</li>
+        <li>Rejects single-tool detections unless confidence &gt; 90%</li>
+    </ul>
+
+    <h3>Layer 4: Behavioral Analysis</h3>
+    <ul>
+        <li>Detects suspicious response times (&lt;0.1s or &gt;30s)</li>
+        <li>Flags "perfect" responses (large size + 200 status on sensitive paths)</li>
+    </ul>
+
+    <h3>Layer 5: Contextual Validation</h3>
+    <ul>
+        <li>Verifies target consistency (e.g., no <code>localhost</code> in remote scan)</li>
+        <li>Ensures technology stack matches findings (e.g., no WordPress CVE if WP not detected)</li>
+    </ul>
+
+    <h3>Output Indicators</h3>
+    <table>
+        <thead><tr><th>Console Tag</th><th>Meaning</th></tr></thead>
+        <tbody>
+            <tr><td>🚨 <code>HONEYPOT DETECTED</code></td><td>High-confidence honeypot; do not exploit</td></tr>
+            <tr><td>⚠️ <code>FALSE POSITIVE LIKELY</code></td><td>Low-confidence finding; manual review recommended</td></tr>
+            <tr><td>✅ <code>HIGH CONFIDENCE</code></td><td>Ready for attack chaining</td></tr>
+            <tr><td>❌ <code>CROSS-REFERENCE FAILED</code></td><td>Isolated finding; requires verification</td></tr>
+        </tbody>
+    </table>
+    <p>Findings with confidence &lt; 60% are excluded from attack chains but remain in reports.</p>
+
+    <!-- ============================================================ -->
+    <h2 id="chains">🔗 Attack Chain Engine: Automated Exploitation</h2>
+    <p>The framework doesn't just find vulnerabilities—it <strong>chains them into compromise paths</strong>. Chains execute automatically after validation.</p>
+
+    <h3>Supported Chains</h3>
+    <table>
+        <thead><tr><th>Chain Name</th><th>Steps</th><th>Outcome</th></tr></thead>
+        <tbody>
+            <tr>
+                <td><code>LFI_to_Admin_Access</code></td>
+                <td>1. Read <code>/wp-config.php</code> via LFI<br>2. Extract <code>DB_PASSWORD</code><br>3. Login to <code>/wp-admin</code><br>4. Verify admin panel access</td>
+                <td>Full CMS admin access</td>
+            </tr>
+            <tr>
+                <td><code>CVE_Exploitation_Chain</code></td>
+                <td>1. Fingerprint Apache 2.4.49<br>2. Lookup CVE-2021-41773<br>3. Send path traversal payload<br>4. Read <code>/etc/passwd</code></td>
+                <td>RCE confirmed</td>
+            </tr>
+            <tr>
+                <td><code>Database_to_Cracked_Creds</code></td>
+                <td>1. Find <code>/backup.sql</code><br>2. Extract bcrypt hashes<br>3. Crack with Hashcat<br>4. Use credentials on login page</td>
+                <td>Valid user credentials</td>
+            </tr>
+            <tr>
+                <td><code>Backup_to_Full_Compromise</code></td>
+                <td>1. Download <code>.env</code><br>2. Extract <code>API_KEY</code><br>3. Access <code>/api/admin</code> with header<br>4. Verify 200 response</td>
+                <td>API-level compromise</td>
+            </tr>
+            <tr>
+                <td><code>WAF_Bypass_Chain</code></td>
+                <td>1. Detect Cloudflare<br>2. Craft <code>&lt;svg/onload=alert(1)&gt;</code><br>3. Bypass WAF<br>4. Trigger XSS</td>
+                <td>WAF bypass proven</td>
+            </tr>
+            <tr>
+                <td><code>Logic_Flaw_Exploitation</code></td>
+                <td>1. Detect race condition on <code>/api/credit</code><br>2. Send 20 concurrent requests<br>3. Verify 15/20 succeed<br>4. Confirm balance double-charged</td>
+                <td>Business logic exploited</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Runtime Example</h3>
+    <pre><code>[MODULE 26] ATTACK CHAIN ENGINE + INTELLIGENCE VALIDATION
+[*] Validating 47 findings...
+  [!] ⚠️  FALSE POSITIVE LIKELY: Generic error message
+  [!] 🚨 HONEYPOT DETECTED: Canary token in response
+[+] Validated 23/47 findings
+[+] Identified 3 viable attack chains
+[*] Executing chain: Logic_Flaw_Exploitation
+    [Step 1/3] Identify Race Target
+        ✓ Step successful (Endpoint: /api/credit)
+    [Step 2/3] Exploit Race Condition
+        ✓ Step successful (Success Rate: 85%)
+    [Step 3/3] Verify Impact
+        ✓ Step successful
+[CRITICAL] RACE CONDITION EXPLOITED: Endpoint: /api/credit | Success Rate: 85%</code></pre>
+
+    <div class="alert alert-success">
+        🔍 Chains are logged in <code>report.json</code> under <code>"attack_chains"</code> with step-by-step execution status.
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="modules">🧰 Integrated Tools &amp; Modules (34+)</h2>
+
+    <h3>A. Core Scanning Modules</h3>
+    <table>
+        <thead><tr><th>Module</th><th>ID</th><th>Function</th></tr></thead>
+        <tbody>
+            <tr><td>Async HTTP Scanning</td><td>1</td><td>Parallel requests via <code>aiohttp</code> (10× faster)</td></tr>
+            <tr><td>Technology Fingerprinting</td><td>2</td><td>Detect CMS, frameworks, server versions</td></tr>
+            <tr><td>Form Auto-Discovery</td><td>3</td><td>Parse HTML forms and test for injection</td></tr>
+            <tr><td>Security Headers Analysis</td><td>4</td><td>Validate HSTS, CSP, XFO</td></tr>
+            <tr><td>SSL/TLS Analysis</td><td>8</td><td>Certificate inspection, weak cipher detection</td></tr>
+            <tr><td>Subdomain Enumeration</td><td>9</td><td>Passive + active discovery</td></tr>
+            <tr><td>WAF Detection</td><td>15</td><td>Identify Cloudflare, ModSecurity, AWS WAF</td></tr>
+            <tr><td>API Endpoint Testing</td><td>16</td><td>Discover <code>/api</code>, <code>/graphql</code>, <code>/swagger.json</code></td></tr>
+        </tbody>
+    </table>
+
+    <h3>B. Injection &amp; Exploitation Modules</h3>
+    <table>
+        <thead><tr><th>Module</th><th>ID</th><th>Capability</th></tr></thead>
+        <tbody>
+            <tr><td>XSS Testing</td><td>5</td><td>Basic + advanced (mutation, DOM XSS)</td></tr>
+            <tr><td>SQLi Testing</td><td>5</td><td>Error-based, boolean, time-based, stacked queries</td></tr>
+            <tr><td>LFI Testing</td><td>5</td><td>Path traversal, log poisoning, config reading</td></tr>
+            <tr><td>Command Injection</td><td>5</td><td>OS command execution via <code>;</code>, <code>|</code>, <code>$()</code></td></tr>
+            <tr><td>Protocol-Level Attacks</td><td>20</td><td>HTTP request smuggling, WebSocket abuse</td></tr>
+            <tr><td>JWT Bypass</td><td>21</td><td>None algorithm, weak secret testing</td></tr>
+            <tr><td>Advanced SQLi</td><td>22</td><td>Blind time-based, BENCHMARK() tests</td></tr>
+            <tr><td>Advanced XSS</td><td>23</td><td>CSP bypass, JavaScript bait</td></tr>
+            <tr><td>Race Condition Attacks</td><td>24</td><td>TOCTOU via concurrent requests</td></tr>
+            <tr><td>Advanced Evasion</td><td>25</td><td>Unicode normalization, HPP, double encoding</td></tr>
+        </tbody>
+    </table>
+
+    <h3>C. External Tool Integration</h3>
+    <table>
+        <thead><tr><th>Tool</th><th>Purpose</th><th>Status</th></tr></thead>
+        <tbody>
+            <tr><td><code>nmap</code></td><td>Network recon, port scanning, OS fingerprinting</td><td><span class="badge badge-green">✅ Built-in</span></td></tr>
+            <tr><td><code>nikto</code></td><td>Web server vulnerability scanning</td><td><span class="badge badge-green">✅ Built-in</span></td></tr>
+            <tr><td><code>sqlmap</code></td><td>SQL injection exploitation &amp; WAF bypass</td><td><span class="badge badge-green">✅ Enhanced</span></td></tr>
+            <tr><td><code>nuclei</code></td><td>Template-based scanning (13k+ templates)</td><td><span class="badge badge-green">✅ Built-in</span></td></tr>
+            <tr><td><code>hashcat</code></td><td>Password hash cracking</td><td><span class="badge badge-green">✅ Integrated</span></td></tr>
+            <tr><td><code>ffuf</code></td><td>Fast web fuzzer (directory/file brute-force)</td><td><span class="badge badge-blue">Go-based</span></td></tr>
+            <tr><td><code>httpx</code></td><td>HTTP probing, tech detection, status checking</td><td><span class="badge badge-blue">Go-based</span></td></tr>
+            <tr><td><code>dalfox</code></td><td>Advanced XSS scanner (DOM, CSP, blind)</td><td><span class="badge badge-blue">Go-based</span></td></tr>
+            <tr><td><code>gau</code></td><td>Historical URL discovery (Wayback, CommonCrawl)</td><td><span class="badge badge-blue">Go-based</span></td></tr>
+            <tr><td><code>subfinder</code></td><td>Passive subdomain enumeration</td><td><span class="badge badge-orange">⚠️ Go ≥1.20</span></td></tr>
+            <tr><td><code>paramminer</code></td><td>Hidden parameter discovery</td><td><span class="badge badge-blue">Go-based</span></td></tr>
+        </tbody>
+    </table>
+
+    <h3>D. Red Team Specialized Modules</h3>
+    <table>
+        <thead><tr><th>Module</th><th>ID</th><th>Function</th></tr></thead>
+        <tbody>
+            <tr><td>Credential Stuffing</td><td>25</td><td>Automated login with extracted creds</td></tr>
+            <tr><td>Proof of Exploitation (PoE)</td><td>25</td><td>Validates LFI/RCE by reading <code>/etc/passwd</code> or executing <code>id</code></td></tr>
+            <tr><td>Attack Chain Engine</td><td>26</td><td>Chains findings into full compromise</td></tr>
+            <tr><td>Intelligence Engine</td><td>33</td><td>Validates, filters, and scores findings</td></tr>
+            <tr><td>Self-Protection System</td><td>Opt</td><td>Evasion, proxy rotation, circuit breaker</td></tr>
+        </tbody>
+    </table>
+
+    <!-- ============================================================ -->
+    <h2 id="output">📤 Output &amp; Reporting</h2>
+    <p>All results are saved to <code>--output</code> (default: <code>/tmp/scan_results</code>).</p>
+
+    <h3>File Structure</h3>
+    <pre><code>/tmp/scan_results/
+├── report.html          # Interactive dashboard (color-coded severity)
+├── report.json          # Machine-readable (includes confidence, chains, context)
+├── scanner.log          # Full terminal log (debugging/auditing)
+├── scan_state.pkl       # Resume point (for --resume)
+├── nuclei_results.json  # Raw Nuclei output
+├── ffuf_results.json    # Raw ffuf output
+├── httpx_results.json   # Raw httpx output
+└── ...</code></pre>
+
+    <h3>Report Highlights</h3>
+    <ul>
+        <li><strong>HTML Dashboard:</strong> Shows <code>Attack Context</code> (credentials, hashes, versions), <code>Protection Status</code>, and <code>Chain Execution Results</code>.</li>
+        <li><strong>JSON Schema:</strong> Includes target, self-protection status, findings array, performance metrics, context summary, and attack chain execution logs.</li>
+    </ul>
+
+    <!-- ============================================================ -->
+    <h2 id="lab">🧪 Lab Testing Recommendations</h2>
+    <p>For local validation (e.g., DVWA, Juice Shop, Metasploitable):</p>
+
+    <pre><code># Fast lab scan (no protection)
+python3 professional-security-scanner.py -t http://localhost:8080 -p aggressive
+
+# With PoE verification
+python3 professional-security-scanner.py -t http://localhost:8080 -p extreme --self-protect
+
+# Test race conditions explicitly
+python3 professional-security-scanner.py -t http://localhost:8080 -p aggressive</code></pre>
+
+    <div class="alert alert-success">
+        ✅ <strong>Expected outcomes in labs:</strong>
+        <ul style="margin-top:0.5rem; margin-left:1.5rem;">
+            <li>LFI → <code>/etc/passwd</code> read</li>
+            <li>SQLi → <code>UNION SELECT version()</code></li>
+            <li>Race condition → 10/10 success on <code>/api/credit</code></li>
+            <li>Attack Chain → <code>LFI_to_Admin_Access</code> SUCCESS</li>
+        </ul>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="install">📦 Installation Quick Reference</h2>
+
+    <h3>Python Dependencies</h3>
+    <pre><code>pip install aiohttp beautifulsoup4 tqdm pyyaml requests colorama jinja2 lxml websocket-client</code></pre>
+
+    <h3>System Tools (Debian/Ubuntu)</h3>
+    <pre><code>sudo apt update &amp;&amp; sudo apt install nmap nikto sqlmap hashcat hydra golang-go</code></pre>
+
+    <h3>Go-Based Tools</h3>
+    <pre><code>export PATH=$PATH:$(go env GOPATH)/bin
+go install github.com/ffuf/ffuf/v2@latest
+go install github.com/projectdiscovery/httpx/cmd/httpx@latest
+go install github.com/hahwul/dalfox/v2@latest
+go install github.com/lc/gau/v2/cmd/gau@latest
+# subfinder: skip if Go &lt; 1.20 (graceful degradation)</code></pre>
+
+    <h3>Data Resources</h3>
+    <ul>
+        <li><strong>SecLists:</strong> <code>/root/SecLists/</code> (verified paths in code)</li>
+        <li><strong>Nuclei Templates:</strong> <code>~/nuclei-templates/</code> (13,323 templates)</li>
+    </ul>
+
+    <!-- ============================================================ -->
+    <h2 id="legal">⚖️ Legal &amp; Ethical Notice</h2>
+    <div class="alert alert-critical">
+        <strong>This framework is designed exclusively for:</strong>
+        <ul style="margin-top:0.5rem; margin-left:1.5rem;">
+            <li>Authorized penetration testing</li>
+            <li>Academic security research</li>
+            <li>CTF competitions</li>
+        </ul>
+        <p style="margin-top:0.5rem;"><strong>Unauthorized use is illegal.</strong> Always obtain written permission before scanning any system. The Intelligence Engine includes honeypot detection to help avoid accidental engagement with deception systems.</p>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="history">📈 Version History Summary</h2>
+    <table>
+        <thead><tr><th>Version</th><th>Focus</th><th>Key Additions</th></tr></thead>
+        <tbody>
+            <tr><td>v8.0</td><td>Assessment</td><td>19 modules, YAML config, basic reporting</td></tr>
+            <tr><td>v10.0</td><td>Automation</td><td>Attack Chain Engine (basic), external tool orchestration</td></tr>
+            <tr><td>v12.0</td><td>Tool Integration</td><td>ffuf, subfinder, httpx, dalfox, gau, paramminer</td></tr>
+            <tr><td>v13.0</td><td>Self-Protection</td><td>Optional evasion, proxy rotation, circuit breaker</td></tr>
+            <tr>
+                <td><strong>v14.0</strong></td>
+                <td><strong>Red Team Ops</strong></td>
+                <td><strong>Intelligence Engine, Logic Flaw Exploitation, Full Chain Execution, Confidence Scoring</strong></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <footer>
+        <p>✅ You now have a production-grade Red Team Automation Framework.<br>
+        Use it responsibly. Document everything. And always—<strong>get authorization first</strong>.</p>
+        <p style="margin-top:1rem;">Professional Security Assessment Framework &copy; 2024–2026 | MIT License</p>
+    </footer>
+
+</body>
+</html>
