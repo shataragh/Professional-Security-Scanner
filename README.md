@@ -213,6 +213,7 @@ A 5-stage validation pipeline that runs before any chain execution:
 3.  **Cross-Reference**: Requires corroboration from multiple tools or data sources.
 4.  **Behavioral Analysis**: Flags suspicious response times or unusually large payloads.
 5.  **Contextual Validation**: Ensures findings match the target’s technology stack and protocol.
+   
 *Output*: Each finding receives a **0–100% Confidence Score** and a classification (Valid, Honeypot, False Positive).
 
 ### 6. External Tool Orchestration
