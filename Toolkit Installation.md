@@ -56,7 +56,7 @@ go install github.com/lc/gau/v2/cmd/gau@latest
 ```
 ## Passive Subdomain Enumerator (subfinder)
 
-Note: Requires Go 1.20+. Skip if on Go 1.19.
+> **⚠️Note:** Requires Go 1.20+. Skip if on Go 1.19.
 ```bash
 go install github.com/projectdiscovery/subfinder/v2/cmd/subfinder@v2.6.3
 ```
@@ -82,6 +82,27 @@ Troubleshooting 32-bit Systems: If -update-templates fails due to version parsin
 ```bash
 git clone --depth 1 https://github.com/projectdiscovery/nuclei-templates.git ~/nuclei-templates
 ```
+## Wordlists & Payloads (SecLists)
+SecLists is a security tester's companion containing usernames, passwords, URLs, sensitive data patterns, and fuzzing payloads.
+Clone the repository directly into the preferred environment directory:
+```bash
+git clone https://github.com/danielmiessler/SecLists.git /root/SecLists
+```
+## Verified Paths for PSAF v14.0
+The framework expects these specific paths:
+>/root/SecLists/Discovery/Web-Content/common.txt
+
+>/root/SecLists/Fuzzing/XSS/human-friendly/XSS-BruteLogic.txt
+
+>/root/SecLists/Fuzzing/Databases/SQLi/Generic-SQLi.txt
+
+>/root/SecLists/Fuzzing/LFI/Linux/LFI-gracefulsecurity-linux.txt
+
+>/root/SecLists/Passwords/Common-Credentials/xato-net-10-million-passwords-100000.txt
+
+>/root/SecLists/Discovery/DNS/subdomains-top1million-5000.txt
+---
+
 
 
 
