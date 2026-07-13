@@ -83,12 +83,14 @@ Troubleshooting 32-bit Systems: If -update-templates fails due to version parsin
 git clone --depth 1 https://github.com/projectdiscovery/nuclei-templates.git ~/nuclei-templates
 ```
 ## Wordlists & Payloads (SecLists)
+
 SecLists is a security tester's companion containing usernames, passwords, URLs, sensitive data patterns, and fuzzing payloads.
 Clone the repository directly into the preferred environment directory:
 ```bash
 git clone https://github.com/danielmiessler/SecLists.git /root/SecLists
 ```
 ## Verified Paths for PSAF v14.0
+
 The framework expects these specific paths:
 >/root/SecLists/Discovery/Web-Content/common.txt
 
@@ -102,6 +104,52 @@ The framework expects these specific paths:
 
 >/root/SecLists/Discovery/DNS/subdomains-top1million-5000.txt
 ---
+## Verification Script
+
+Run this comprehensive check to ensure all components are ready:
+```bash
+# Check Python packages
+python3 -c "import aiohttp, bs4, tqdm, yaml, requests, colorama, jinja2, lxml, websocket; print('✓ Python OK')"
+
+# Check system tools
+nmap --version | head -1
+sqlmap --version
+hashcat --version | head -1
+
+# Check Go tools
+ffuf -V 2>&1 | head -1
+httpx -version 2>&1 | head -1
+dalfox version 2>&1 | head -1
+gau --version 2>&1 | head -1
+nuclei -version 2>&1 | grep "Current Version"
+
+# Check data resources
+ls /root/SecLists/Discovery/Web-Content/common.txt && echo "✓ SecLists OK"
+ls ~/nuclei-templates/http/ | wc -l && echo "✓ Nuclei Templates OK"
+```
+## Updating Tools
+
+Keep your toolkit current with these commands:
+```bash
+# Update Python packages
+pip install --upgrade aiohttp beautifulsoup4 tqdm pyyaml requests colorama jinja2 lxml websocket-client
+
+# Update Go tools
+go install github.com/ffuf/ffuf/v2@latest
+go install github.com/projectdiscovery/httpx/cmd/httpx@latest
+go install github.com/hahwul/dalfox/v2@latest
+go install github.com/lc/gau/v2/cmd/gau@latest
+
+# Update Nuclei templates
+nuclei -update-templates
+
+# Update SecLists
+cd /root/SecLists && git pull
+```
+
+
+
+
 
 
 
